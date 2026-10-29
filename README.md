@@ -1,5 +1,7 @@
 # Realtime Playground
 
+LIVE: https://realtime-playground-rcvp.onrender.com
+
 A hands-on comparison of the four main ways to get live updates from a server into a browser: **short polling**, **long polling**, **Server-Sent Events (SSE)** and **Socket.io (WebSocket)**.
 
 One FastAPI server delivers the same stream of messages to the browser all four ways, side by side. Each panel measures how many requests it made, how many came back empty, and how late each message arrived. A "drop all connections" button forces the server to hang up on everyone, so you can watch how each technique recovers.
