@@ -1,0 +1,70 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Realtime Playground</title>
+  <style>
+    body { font-family: system-ui; margin: 20px; }
+    .send, .chaos { display: flex; gap: 8px; max-width: 600px; margin-bottom: 8px; }
+    .send input { flex: 1; padding: 6px; }
+    .flash { color: #2f5bea; min-height: 18px; margin: 4px 0; font-size: 13px; }
+    .server { font-family: monospace; font-size: 12px; color: #555; border: 1px dashed #ccc;
+              border-radius: 6px; padding: 6px 10px; margin: 0; }
+    .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px; }
+    .panel { border: 1px solid #ccc; border-radius: 8px; padding: 10px; }
+    .panel h2 { font-size: 15px; margin: 0 0 4px; }
+    .stats { font-size: 12px; color: #666; }
+    .log { font-family: monospace; font-size: 12px; height: 260px; overflow: auto;
+           list-style: none; padding: 0; margin: 6px 0 0; }
+    .note { color: #999; font-style: italic; }
+  </style>
+</head>
+<body>
+  <h1>Realtime Playground</h1>
+
+  <form class="send" id="sendForm">
+    <input id="text" placeholder="Type a message…" maxlength="200" autocomplete="off" />
+    <button>Send</button>
+    <button type="button" id="sendSocket">Send via Socket.io</button>
+  </form>
+
+  <div class="chaos">
+    <button type="button" id="burst">Burst ×5</button>
+    <button type="button" id="drop">Drop all connections</button>
+    <button type="button" id="clear">Clear logs</button>
+  </div>
+  <p class="flash" id="flash"></p>
+  <p class="server" id="serverStats">Loading server stats…</p>
+
+  <div class="grid">
+    <section class="panel" id="short">
+      <h2>1. Short polling</h2>
+      <div class="stats"></div>
+      <ul class="log"></ul>
+    </section>
+
+    <section class="panel" id="long">
+      <h2>2. Long polling</h2>
+      <div class="stats"></div>
+      <ul class="log"></ul>
+    </section>
+
+    <section class="panel" id="sse">
+      <h2>3. SSE</h2>
+      <div class="stats"></div>
+      <ul class="log"></ul>
+    </section>
+
+    <section class="panel" id="socket">
+      <h2>4. Socket.io</h2>
+      <div class="stats"></div>
+      <div class="stats" id="rtt">round trip: —</div>
+      <ul class="log"></ul>
+    </section>
+  </div>
+
+  <!-- Socket.io client must load before app.js, which calls io() -->
+  <script src="https://cdn.socket.io/4.8.1/socket.io.min.js"></script>
+  <script src="/app.js"></script>
+</body>
+</html>
